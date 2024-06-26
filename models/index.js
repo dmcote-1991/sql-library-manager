@@ -24,11 +24,13 @@ const db = {};
   }
 
   try {
-    await sequelize.sync();
     await sequelize.authenticate();
     console.log(
       "Connection to the database has been established successfully."
     );
+
+    await sequelize.sync();
+    console.log("All models have been synchronized with the database.");
 
     fs.readdirSync(__dirname)
       .filter((file) => {
