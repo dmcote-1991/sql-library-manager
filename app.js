@@ -30,7 +30,7 @@ app.use("/users", usersRouter);
 
 // 404 Error Handler
 app.use(function (req, res, next) {
-  var err = new Error("Not Found");
+  const err = new Error("Not Found");
   err.status = 404;
   err.message = "Sorry! We couldn't find the page you were looking for.";
   next(err);
@@ -38,17 +38,16 @@ app.use(function (req, res, next) {
 
 // Global Error Handler
 app.use(function (err, req, res, next) {
-  // Set default error status and message if not defined
   err.status = err.status || 500;
   err.message =
     err.message || "Sorry! There was an unexpected error on the server.";
-
-  // Log error status and message
   console.error(`Error ${err.status}: ${err.message}`);
-
-  // Render error page
   res.status(err.status);
-  res.render("error", { err: err });
+  if (err.status === 404) {
+    res.render("page-not-found");
+  } else {
+    res.render("error", { err });
+  }
 });
 
 // Exports the Express application
