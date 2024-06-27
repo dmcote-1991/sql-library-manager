@@ -3,6 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const db = require("./models");
+const { Op } = require("sequelize");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -28,8 +29,43 @@ app.get("/", (req, res) => {
 
 app.get("/books", async (req, res, next) => {
   try {
-    const books = await db.Book.findAll();
-    res.render("index", { title: "Books", books });
+    let whereClause = {};
+    if (req.query.search) {
+      const searchQuery = req.query.search.toLowerCase();
+      console.log("Search Query:", searchQuery);
+      whereClause = {
+        [Op.or]: [
+          {
+            title: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          },
+          {
+            author: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          },
+          {
+            genre: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          },
+          {
+            year: {
+              [Op.like]: `%${searchQuery}%`,
+            },
+          },
+        ],
+      };
+    }
+    const books = await db.Book.findAll({
+      where: whereClause,
+    });
+    res.render("index", {
+      title: "Books",
+      books,
+      searchQuery: req.query.search,
+    });
   } catch (error) {
     next(error);
   }
