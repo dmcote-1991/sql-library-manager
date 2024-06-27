@@ -30,9 +30,12 @@ app.get("/", (req, res) => {
 app.get("/books", async (req, res, next) => {
   try {
     let whereClause = {};
+    let { page, limit } = req.query;
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 10; // Number of items per page
+
     if (req.query.search) {
       const searchQuery = req.query.search.toLowerCase();
-      console.log("Search Query:", searchQuery);
       whereClause = {
         [Op.or]: [
           {
@@ -58,13 +61,18 @@ app.get("/books", async (req, res, next) => {
         ],
       };
     }
-    const books = await db.Book.findAll({
+
+    const { count, rows: books } = await db.Book.findAndCountAll({
       where: whereClause,
+      offset: (page - 1) * limit,
+      limit: limit,
     });
+
     res.render("index", {
       title: "Books",
       books,
       searchQuery: req.query.search,
+      pagination: { page, pageCount: Math.ceil(count / limit) },
     });
   } catch (error) {
     next(error);

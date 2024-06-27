@@ -92,6 +92,52 @@ input[type=text] {
   width: 300px;
 }
 
+.search-form input[type="text"] {
+  margin-right: 2px;
+}
+
+.search-form button {
+  margin-left: 2px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: left;
+  padding: 0;
+  list-style-type: none;
+  margin-bottom: 10px;
+  line-height: 1.3em;
+}
+
+.pagination li {
+  margin-right: 5px;
+}
+
+.pagination li a {
+  color: #019875;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: 1px solid #019875;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination li.disabled a {
+  color: #ccc;
+  pointer-events: none; /* Prevent clicking on disabled links */
+}
+
+.pagination li.active a {
+  background-color: #019875;
+  color: white;
+}
+
+.pagination li a:hover {
+  background-color: #019875;
+  color: white;
+}
+
 .error {
   color: rgb(236, 15, 15);
 }
