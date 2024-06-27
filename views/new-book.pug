@@ -5,16 +5,20 @@ block content
   form(action='/books/new', method='POST')
     p
       label(for='title') Title
-      input(name='title', type='text', id='title')
+      input(name='title', type='text', id='title', value=(typeof title !== 'undefined' ? title : ''))
+      if errors && errors.title
+        span.error #{errors.title}
     p
       label(for='author') Author
-      input(name='author', type='text', id='author')
+      input(name='author', type='text', id='author', value=(typeof author !== 'undefined' ? author : ''))
+      if errors && errors.author
+        span.error #{errors.author}
     p
       label(for='genre') Genre
-      input(name='genre', type='text', id='genre')
+      input(name='genre', type='text', id='genre', value=(typeof genre !== 'undefined' ? genre : ''))
     p
       label(for='year') Year
-      input(name='year', type='text', id='year')
+      input(name='year', type='text', id='year', value=(typeof year !== 'undefined' ? year : ''))
     p
       input(type='submit', value='Create New Book')
     p

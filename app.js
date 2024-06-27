@@ -36,7 +36,7 @@ app.get("/books", async (req, res, next) => {
 });
 
 app.get("/books/new", (req, res) => {
-  res.render("new-book", { title: "New Book" });
+  res.render("new-book");
 });
 
 app.post("/books/new", async (req, res, next) => {
@@ -45,7 +45,19 @@ app.post("/books/new", async (req, res, next) => {
     await db.Book.create({ title, author, genre, year });
     res.redirect("/books");
   } catch (error) {
-    next(error);
+    if (error.name === "SequelizeValidationError") {
+      const errors = error.errors.map((err) => err.message);
+      res.render("form-error", {
+        title: "New Book",
+        errors,
+        title: req.body.title,
+        author: req.body.author,
+        genre: req.body.genre,
+        year: req.body.year,
+      });
+    } else {
+      next(error);
+    }
   }
 });
 
