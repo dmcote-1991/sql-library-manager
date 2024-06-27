@@ -92,6 +92,11 @@ input[type=text] {
   width: 300px;
 }
 
+.error {
+  color: rgb(236, 15, 15);
+}
+
+/* Search form specific styles */
 .search-form input[type="text"] {
   margin-right: 2px;
 }
@@ -100,6 +105,7 @@ input[type=text] {
   margin-left: 2px;
 }
 
+/* Pagination styles */
 .pagination {
   display: flex;
   justify-content: left;
@@ -125,7 +131,7 @@ input[type=text] {
 
 .pagination li.disabled a {
   color: #ccc;
-  pointer-events: none; /* Prevent clicking on disabled links */
+  pointer-events: none; 
 }
 
 .pagination li.active a {
@@ -136,8 +142,4 @@ input[type=text] {
 .pagination li a:hover {
   background-color: #019875;
   color: white;
-}
-
-.error {
-  color: rgb(236, 15, 15);
 }

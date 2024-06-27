@@ -4,9 +4,13 @@ block content
   h1 Books
   p
     a.button(href='/books/new') Create New Book
+
+  //- Search form section  
   form.search-form(action="/books", method="GET")
     input(type="text", name="search", placeholder="Search by title, author, genre, or year", value=`${searchQuery || ''}`)
     button(type="submit") Search
+
+  //- Conditional rendering based on whether there are books to display  
   if books.length > 0
     table
       thead
@@ -23,13 +27,20 @@ block content
             td #{book.author}
             td #{book.genre}
             td #{book.year}
+
+    //- Pagination section, if pagination data is povided and there is more than one page
     if pagination && pagination.pageCount > 1
       ul.pagination
+        //- Link for the previous page
         li(class=pagination.page === 1 ? 'disabled' : '')
           a(href=`/books?page=${pagination.page - 1}&limit=${pagination.limit}`) Prev
+        
+        //- Generates pagination links for each page
         each num in Array.from({ length: pagination.pageCount }, (_, i) => i + 1)
           li(class=pagination.page === num ? 'active' : '')
             a(href=`/books?page=${num}&limit=${pagination.limit}`) #{num}
+
+        //- Link for the next page
         li(class=pagination.page === pagination.pageCount ? 'disabled' : '')
           a(href=`/books?page=${pagination.page + 1}&limit=${pagination.limit}`) Next
   else 

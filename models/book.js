@@ -1,17 +1,12 @@
 "use strict";
+
+// Module imports
 const { Model, DataTypes } = require("sequelize");
 
+// Exports a function that defines and returns the Book model
 module.exports = (sequelize) => {
-  class Book extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
+  class Book extends Model {}
+
   Book.init(
     {
       title: {
@@ -36,8 +31,8 @@ module.exports = (sequelize) => {
       year: DataTypes.INTEGER,
     },
     {
-      sequelize,
-      modelName: "Book",
+      sequelize, // Passes the sequelize instance to the model
+      modelName: "Book", // Defines the model name as "Book"
     }
   );
   return Book;

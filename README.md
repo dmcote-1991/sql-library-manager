@@ -9,7 +9,7 @@ A dynamic and intuitive application for managing a library's collection of books
 ## Technologies Used
 
 - **Backend**: SQLite, Sequelize ORM
-- **Frontend**: HTML, CSS, JavaScript, Express
+- **Frontend**: HTML, CSS, JavaScript, Express, Pug
 - **Server**: Express.js
 - **Version Control**: Git
 - **Package Manager**: npm

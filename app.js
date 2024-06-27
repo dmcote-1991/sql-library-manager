@@ -1,32 +1,42 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+// Imports modules
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const db = require("./models");
 const { Op } = require("sequelize");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+// Imports routes
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 
-var app = express();
+// Initializes the Express application
+const app = express();
 
+// View engine setup (using Pug)
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+// Middleware setup
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Routes setup
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
-// Routes
+/**
+ * Routes
+ */
+// Default route to redirect to "/books"
 app.get("/", (req, res) => {
   res.redirect("/books");
 });
 
+// Route to display list of books
 app.get("/books", async (req, res, next) => {
   try {
     let whereClause = {};
@@ -79,10 +89,12 @@ app.get("/books", async (req, res, next) => {
   }
 });
 
+// Route to render form for adding a new book
 app.get("/books/new", (req, res) => {
   res.render("new-book");
 });
 
+// Route to handle submission of new book form
 app.post("/books/new", async (req, res, next) => {
   try {
     const { title, author, genre, year } = req.body;
@@ -105,6 +117,7 @@ app.post("/books/new", async (req, res, next) => {
   }
 });
 
+// Route to render book details for update
 app.get("/books/:id", async (req, res, next) => {
   try {
     const book = await db.Book.findByPk(req.params.id);
@@ -119,6 +132,7 @@ app.get("/books/:id", async (req, res, next) => {
   }
 });
 
+// Route to handle submission of updated book details
 app.post("/books/:id", async (req, res, next) => {
   try {
     const { title, author, genre, year } = req.body;
@@ -135,6 +149,7 @@ app.post("/books/:id", async (req, res, next) => {
   }
 });
 
+// Route to handle deletion of a book
 app.post("/books/:id/delete", async (req, res, next) => {
   try {
     const book = await db.Book.findByPk(req.params.id);
@@ -173,4 +188,5 @@ app.use(function (err, req, res, next) {
   res.render("error", { err: err });
 });
 
+// Exports the Express application
 module.exports = app;
