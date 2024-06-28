@@ -6,9 +6,13 @@ block content
       p
         label(for='title') Title
         input(name='title', type='text', id='title', value=book.title)
+        if errors && errors.title
+          span.error #{errors.title}
       p
         label(for='author') Author
         input(name='author', type='text', id='author', value=book.author)
+        if errors && errors.author
+          span.error #{errors.author}
       p
         label(for='genre') Genre
         input(name='genre', type='text', id='genre', value=book.genre)
