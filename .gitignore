@@ -1,5 +1,32 @@
-# OS-generated files
-.DS_Store
+# Logs
+logs
+*.log
+npm-debug.log*
 
-# Node_modules directory
+# Dependency directories
 node_modules/
+
+# Build output
+dist
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional cache directories
+.npm                    
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# dotenv environment variable files
+.env
+.env.*
+
+# Miscellaneous
+.DS_Store  
+
+# Sensitive config file
+config/config.json
+
+# SQLite database file
+*.db

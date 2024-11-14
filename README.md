@@ -26,7 +26,7 @@ sql-library-manager/
 ├── bin/
 │   └── www                   # HTTP server setup
 ├── config/
-│   └── config.json           # Database configuration
+│   └── config.example.json   # Example config for setup
 ├── migrations/
 │   └── <timestamp>-create-book.js   # Database migration file for books table
 ├── models/
@@ -39,11 +39,16 @@ sql-library-manager/
 ├── routes/
 │   ├── index.js              # Routes for book management
 │   └── users.js              # Routes for user management
-└── views/
-    ├── index.pug             # Main page displaying list of books
-    ├── new-book.pug          # Form to add a new book
-    ├── form-error.pug        # Error page for form validation
-    └── layout.pug            # Layout template for the app
+├── views/
+│    ├── index.pug             # Main page displaying list of books
+│    ├── new-book.pug          # Form to add a new book
+│    ├── form-error.pug        # Error page for form validation
+│    └── layout.pug            # Layout template for the app
+├── app.js                     # Main app entry point
+├── your-database-name.db      # SQLite database file
+├── package.json               # NPM dependencies and scripts
+├── .gitignore                 
+└── README.md
 ```
 
 ## Installation
@@ -62,14 +67,19 @@ sql-library-manager/
    ```sh
    npm install
    ```
+4. **Set up the configuration file:**
+   Copy the example configuration file and adjust settings as needed.
+   ```sh
+   cp config/config.example.json config/config.json
+   ```
 
-4. **Set up the database:** 
+5. **Set up the database:** 
 Run the migrations to set up the SQLite database and create the necessary tables.
    ```sh
    npx sequelize-cli db:migrate
    ```
 
-5. **Start the server:**
+6. **Start the server:**
    ```sh
    npm start
    ```
@@ -88,3 +98,11 @@ Run the migrations to set up the SQLite database and create the necessary tables
 
 - **Search for books:**  
   Use the search form at the top to find books by title, author, genre, or year.
+
+## Additional Information
+
+- **Database Configuration:** 
+Modify the `config/config.json` file to specify your database settings.
+
+- **Project Showcase:**
+This project is designed as a demonstration of CRUD functionality and database management. For production usage, additional security and optimization would be recommended.
