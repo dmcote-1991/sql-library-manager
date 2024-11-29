@@ -24,29 +24,34 @@ A dynamic and intuitive application for managing a library's collection of books
 ```bash
 sql-library-manager/
 ├── bin/
-│   └── www                   # HTTP server setup
-├── config/
-│   └── config.example.json   # Example config for setup
+│    └── www                   # HTTP server setup
+├── dist/                      # Compiled output files
+│    └── ...        
 ├── migrations/
-│   └── <timestamp>-create-book.js   # Database migration file for books table
-├── models/
-│   ├── book.js               # Book model definition
-│   └── index.js              # Sequelize model and instance setup
-├── node_modules/             # Project dependencies
+│    └── <timestamp>-create-book.ts  # Database migration file for books table
+├── node_modules/              # Project dependencies
 ├── public/
-│   └── stylesheets/
-│       └── style.css         # Styles for the application
-├── routes/
-│   ├── index.js              # Routes for book management
-│   └── users.js              # Routes for user management
+│    └── stylesheets/
+│         └── style.css        # Styles for the application
+├── src/
+│    ├── config/
+│    │    └── config.example.ts  # Example config for setup
+│    ├── models/
+│    │    ├── book.ts          # Book model definition
+│    │    └── index.ts         # Sequelize model and instance setup
+│    ├── routes/
+│    │    ├── index.ts         # Routes for book management
+│    │    └── users.ts         # Routes for user management
+│    └── app.ts                # Main app entry point
 ├── views/
 │    ├── index.pug             # Main page displaying list of books
 │    ├── new-book.pug          # Form to add a new book
 │    ├── form-error.pug        # Error page for form validation
-│    └── layout.pug            # Layout template for the app
-├── app.js                     # Main app entry point
+│    ├── layout.pug            # Layout template for the app
+│    └── ...                   # Other Pug templates
 ├── your-database-name.db      # SQLite database file
 ├── package.json               # NPM dependencies and scripts
+├── tsconfig.json              # TypeScript configuration file               
 ├── .gitignore                 
 └── README.md
 ```
