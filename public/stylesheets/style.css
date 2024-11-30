@@ -1,145 +1,210 @@
-body {
+/* 
+ * General Body Styling
+ * Applies padding and font styles to the entire document.
+ */
+ body {
   padding: 10px 50px 50px;
   font: 18px "Garamond", serif;
 }
 
+/* 
+ * Link Styles
+ * Styles for all anchor elements.
+ */
 a {
-  color: #019875;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.4s;
+  color: #019875;                /* Green color for links */
+  text-decoration: none;           /* Removes underline from links */
+  font-weight: bold;               /* Boldens links */
+  transition: 0.4s;                /* Smooth transition for hover effects */
 }
 
   a:hover {
-    color: black;
+    color: black;                /* Changes link color to black on hover */
   }
 
+/* 
+ * Button and Submit Styles
+ * Shared styles for anchor elements with the "button" class and submit inputs.
+ */
 a.button, input[type=submit] {
-  color: white;
-  background: #019875;
+  color: white;                  /* White text */
+  background: #019875;           /* Green background */
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
-  padding: 10px 14px 12px;
-  font-size: 14px;
-  border-radius: 2px;
-  cursor: pointer;
+  padding: 10px 14px 12px;         /* Padding for button spacing */
+  font-size: 14px;                 /* Font size */
+  border-radius: 2px;              /* Rounded corners */
+  cursor: pointer;                 /* Pointer cursor for interactive elements */
 }
 
+/* Additional Styles for Form Buttons */
 form a.button, input[type=submit] {
-  margin-left: 140px;
-  transition: 0.4s;
+  margin-left: 140px;              /* Adjusts positioning */
+  transition: 0.4s;                /* Smooth hover transition */
 }
 
 input[type=submit] {
-  border: 0;
+  border: 0;                       /* Removes border for submit buttons */
 }
 
+/* Hover Effects for Buttons and Submit Inputs */
   a.button:hover, input[type=submit]:hover {
-    background-color: #01b189;
+    background-color: #01b189;   /* Lighter green background on hover */
   }
 
+/* 
+ * Paragraph Styling
+ * Adds spacing between paragraphs.
+ */
 p {
-  margin: 20px auto;
+  margin: 20px auto;               /* Vertical spacing for paragraphs */
 }
 
+/* 
+ * List Styles
+ * Removes default list styling and applies spacing.
+ */
 ul {
-  padding: 0;
-  list-style-type: none;
-  margin-bottom: 10px;
-  line-height: 1.3em;
+  padding: 0;                      /* Removes default padding */
+  list-style-type: none;           /* Removes bullet points */
+  margin-bottom: 10px;             /* Bottom spacing */
+  line-height: 1.3em;              /* Adjusts line height for readability */
 }
 
+/* 
+ * Header Styling
+ * Adds top border and spacing for H2 elements.
+ */
 h2 {
-  border-top: 2px solid #e7e7e7;
-  padding-top: 20px;
+  border-top: 2px solid #e7e7e7; /* Light gray top border */
+  padding-top: 20px;               /* Adds spacing above content */
 }
 
+/* 
+ * Table Header Styling
+ * Defines appearance of table header cells.
+ */
 th {
-  border-bottom: 2px solid #D8B493;
-  text-align: left;
-  padding: 5px 20px 5px 10px;
+  border-bottom: 2px solid #D8B493; /* Beige bottom border */
+  text-align: left;                 /* Aligns text to the left */
+  padding: 5px 20px 5px 10px;       /* Adds padding for spacing */
 }
 
+/* 
+ * Table Row Styling
+ * Defines minimum height and alternating row colors.
+ */
 tr {
-  min-height: 50px;
+  min-height: 50px;                 /* Sets minimum height for rows */
 }
 
 tr:nth-child(2n) {
-  background: #E7E7E7;
+  background: #E7E7E7;            /* Light gray background for even rows */
 }
 
+/* 
+ * Table Data Cell Styling
+ * Adds padding for table data cells.
+ */
 td {
-  padding: 5px 20px 5px 10px;
+  padding: 5px 20px 5px 10px;      /* Adds spacing for table cells */
 }
 
+/* 
+ * Form Label Styling
+ * Bold labels with consistent spacing.
+ */
 label {
-  font-weight: bold;
-  min-width: 130px;
-  display: inline-block;
-  transition: 0.4s;
+  font-weight: bold;               /* Bold text */
+  min-width: 130px;                /* Minimum width for alignment */
+  display: inline-block;           /* Ensures labels are inline with inputs */
+  transition: 0.4s;                /* Smooth hover transition */
 }
 
+/* 
+ * Input Styling
+ * Adds padding, font styles, and border radius to input fields.
+ */
 input {
-  padding: 10px;
+  padding: 10px;                   /* Spacing inside input fields */
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  border-radius: 2px;
-  border-color: #E7E7E7;
-  transition: 0.4s;
+  font-size: 14px;                 /* Consistent font size */
+  border-radius: 2px;              /* Rounded corners */
+  border-color: #E7E7E7;         /* Light gray border color */
+  transition: 0.4s;                /* Smooth focus/hover transition */
 }
 
+/* 
+ * Text Input Specific Styling
+ * Adds width and spacing for text inputs.
+ */
 input[type=text] {
-  margin-left: 7px;
-  width: 300px;
+  margin-left: 7px;                /* Spacing from label */
+  width: 300px;                    /* Input width */
 }
 
+/* 
+ * Error Message Styling
+ * Styles for elements with the "error" class.
+ */
 .error {
-  color: rgb(236, 15, 15);
+  color: rgb(236, 15, 15);       /* Bright red for error messages */
 }
 
-/* Search form specific styles */
+/* 
+ * Search Form Styling
+ * Specific styles for search form inputs and buttons.
+ */
 .search-form input[type="text"] {
-  margin-right: 2px;
+  margin-right: 2px;               /* Spacing between input and button */
 }
 
 .search-form button {
-  margin-left: 2px;
+  margin-left: 2px;                /* Spacing from text input */
 }
 
-/* Pagination styles */
+/* 
+ * Pagination Styling
+ * Defines the appearance of pagination controls.
+ */
 .pagination {
-  display: flex;
-  justify-content: left;
-  padding: 0;
-  list-style-type: none;
-  margin-bottom: 10px;
-  line-height: 1.3em;
+  display: flex;                   /* Flexbox for alignment */
+  justify-content: left;           /* Aligns pagination to the left */
+  padding: 0;                      /* Removes default padding */
+  list-style-type: none;           /* Removes list styling */
+  margin-bottom: 10px;             /* Bottom margin */
+  line-height: 1.3em;              /* Line height for readability */
 }
 
+/* Pagination Item Styling */
 .pagination li {
-  margin-right: 5px;
+  margin-right: 5px;               /* Spacing between pagination items */
 }
 
+/* Pagination Link Styling */
 .pagination li a {
-  color: #019875;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 12px;
-  border: 1px solid #019875;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
+  color: #019875;                /* Green text color */
+  text-decoration: none;           /* Removes underline */
+  font-weight: bold;               /* Bold text */
+  padding: 8px 12px;               /* Adds padding inside links */
+  border: 1px solid #019875;     /* Green border */
+  border-radius: 4px;              /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
 }
 
+/* Disabled Pagination Links */
 .pagination li.disabled a {
-  color: #ccc;
-  pointer-events: none; 
+  color: #ccc;                   /* Gray text */
+  pointer-events: none;            /* Disables interaction */
 }
 
+/* Active Pagination Links */
 .pagination li.active a {
-  background-color: #019875;
-  color: white;
+  background-color: #019875;     /* Green background */
+  color: white;                  /* White text */
 }
 
+/* Hover Effects for Pagination Links */
 .pagination li a:hover {
-  background-color: #019875;
-  color: white;
+  background-color: #019875;     /* Green background on hover */
+  color: white;                  /* White text on hover */
 }

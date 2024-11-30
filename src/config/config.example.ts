@@ -1,31 +1,60 @@
+/**
+ * @file config.example.ts
+ * @description Provides database configuration settings for different environments (development, testing, production). 
+ * This file serves as a template for actual configuration (`config.ts`) and should be customized for specific project requirements.
+ */
+
 import { Dialect } from "sequelize";
 
-// Interface to define the configuration structure
+/**
+ * @interface Config
+ * @description Defines the structure for database configuration settings.
+ * 
+ * @property {Dialect} dialect - The database dialect (e.g., "sqlite", "postgres").
+ * @property {string} storage - Path to the SQLite database file (applicable for SQLite).
+ * @property {string} [username] - Database username (for non-SQLite databases).
+ * @property {string} [password] - Database password (for non-SQLite databases).
+ * @property {string} [database] - Database name (for non-SQLite databases).
+ * @property {string} [host] - Database host (for non-SQLite databases).
+ * @property {number} [port] - Database port (for non-SQLite databases).
+ */
 interface Config {
-  dialect: Dialect;        // Database dialect, e.g., "sqlite", "postgres"
-  storage: string;         // Path to SQLite database file (for SQLite)
-  username?: string;       // Database username (for other databases)
-  password?: string;       // Database password (for other databases)
-  database?: string;       // Database name (for other databases)
-  host?: string;           // Database host (for other databases)
-  port?: number;           // Database port (for other databases)
+  dialect: Dialect;
+  storage: string;
+  username?: string;
+  password?: string;
+  database?: string;
+  host?: string;
+  port?: number;
 }
 
-// Example configuration for different environments
+/**
+ * Configuration for the development environment.
+ * Uses SQLite for simplicity and local development.
+ */
 const development: Config = {
-  dialect: "sqlite",                   // Use SQLite in development
-  storage: "path/to/development.db",   // Replace with your SQLite file path
+  dialect: "sqlite",                   // Database dialect
+  storage: "path/to/development.db",   // Path to the SQLite database file
 };
 
+/**
+ * Configuration for the test environment.
+ * Uses SQLite to simplify automated testing without external dependencies.
+ */
 const test: Config = {
-  dialect: "sqlite",            // Use SQLite in testing
-  storage: "path/to/test.db",   // Replace with your SQLite file path
+  dialect: "sqlite",            // Database dialect
+  storage: "path/to/test.db",   // Path to the SQLite database file
 };
 
+/**
+ * Configuration for the production environment.
+ * Defaults to SQLite but can be customized for other databases like PostgreSQL.
+ * Uncomment the relevant fields for production use with a non-SQLite database.
+ */
 const production: Config = {
-  dialect: "sqlite",                  // Use SQLite or another database in production
-  storage: "path/to/production.db",   // Replace wiht your SQLite file path
-  // Uncomment and use these fields for non-SQLite databases:
+  dialect: "sqlite",                  // Database dialect
+  storage: "path/to/production.db",   // Path to the SQLite database file
+  // Uncomment and customize the following fields for other database configurations:
   // username: "your-username",
   // password: "your-password",
   // database: "your-database-name",
@@ -33,11 +62,14 @@ const production: Config = {
   // port: 5432, // Example port for PostgreSQL
 };
 
-// Export the configuration as an object keyed by environment
-const config: { [env: string]: Config } = {
+/**
+ * Aggregated configuration object, keyed by environment.
+ * Ensures that each environment is mapped to its corresponding configuration.
+ */const config: { [env: string]: Config } = {
   development,
   test,
   production,
 };
 
+// Export the configuration object for use in the application
 export default config;

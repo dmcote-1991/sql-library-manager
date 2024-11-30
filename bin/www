@@ -1,76 +1,109 @@
 #!/usr/bin/env node
 
+/**
+ * @file www
+ * @description This file serves as the entry point for starting the HTTP server and syncing the database.
+ * It configures the server, synchronizes the database, and listens for incoming requests.
+ */
+
 import app from "../dist/app.js";
 import debug from "debug";
 import http from "http";
 import { sequelize } from "../dist/models/index.js";
 
-// Get port from environment and store in Express.
+// Get the port from the environment or default to 3000.
 const port = normalizePort(process.env.PORT || "3000");
+// Set the port on the Express app.
 app.set("port", port);
 
-// Create HTTP server.
+// Create an HTTP server that will handle incoming requests.
 const server = http.createServer(app);
 
-// Sync database and then start the server.
+/**
+ * @async
+ * @description Synchronize the database with the Sequelize models and start the server.
+ * This function ensures that the models are in sync with the database schema before the server starts.
+ */
 (async () => {
   try {
-    await sequelize.sync(); // Synchronize models with the database
+    // Synchronize the Sequelize models with the database.
+    await sequelize.sync();
     console.log("Database synchronized");
 
-    // Listen on provided port, on all network interfaces.
-    server.listen(port);
+    // Start the server and listen on the provided port.
+    server.listen(port); 
+    // Event listener for server error events.
     server.on("error", onError);
+    // Event listener for server 'listening' event.
     server.on("listening", onListening);
   } catch (error) {
+    // If the database synchronization fails, log the error and exit the process.
     console.error("Unable to sync database:", error);
     process.exit(1); // Exit if database sync fails
   }
 })();
 
-// Normalize a port into a number, string, or false.
+/**
+ * @function normalizePort
+ * @description This function normalizes the port value into a valid number, string, or false.
+ * @param {string} val - The port value to normalize (either as a number or a named pipe).
+ * @returns {number|string|false} - The normalized port value.
+ */
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
-    // named pipe
+    // If the value is not a valid number, treat it as a named pipe.
     return val;
   }
 
   if (port >= 0) {
-    // port number
+    // If the port is a valid number, return it.
     return port;
   }
 
-  return false;
+  return false; // If the port is invalid, return false.
 }
 
-// Event listener for HTTP server "error" event.
+/**
+ * @function onError
+ * @description This function is triggered when the server encounters an error.
+ * It checks the type of error and provides a relevant message before terminating the process.
+ * @param {Object} error - The error object passed from the server.
+ */
 function onError(error) {
   if (error.syscall !== "listen") {
+    // If the error is not related to "listen", throw the error to be handled elsewhere.
     throw error;
   }
 
   const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   const errorMessages = {
-    EACCES: `${bind} requires elevated privileges`,
-    EADDRINUSE: `${bind} is already in use`
+    EACCES: `${bind} requires elevated privileges`, // If permission is denied for the port.
+    EADDRINUSE: `${bind} is already in use` // If the port is already in use.
   };
 
   const message = errorMessages[error.code];
 
   if (message) {
+    // If there is a specific message for the error code, log it and terminate the process.
     console.error(message);
     process.exit(1);
   } else {
+    // If the error is not in the errorMessages object, throw the error.
     throw error;
   }
 }
 
-// Event listener for HTTP server "listening" event.
+/**
+ * @function onListening
+ * @description This function is triggered when the server starts listening for requests.
+ * It logs the address and port on which the server is listening.
+ */
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  // Log the address/port the server is listening on.
   debug("Listening on " + bind);
 }
