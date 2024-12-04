@@ -31,13 +31,14 @@ router.get("/", (req: Request, res: Response) => {
  */
 router.get("/books", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { page = 1, limit = 10, search } = req.query;
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = parseInt(req.query.limit as string, 10) || 10; // Default to 10 if undefined
     const offset = (Number(page) - 1) * Number(limit);
 
     // Construct search criteria if a search query is provided
     const whereClause: any = {};
-    if (search) {
-      const query = (search as string).toLowerCase();
+    if (req.query.search) {
+      const query = (req.query.search as string).toLowerCase();
       whereClause[Op.or] = [
         { title: { [Op.like]: `%${query}%` } },
         { author: { [Op.like]: `%${query}%` } },
@@ -50,14 +51,14 @@ router.get("/books", async (req: Request, res: Response, next: NextFunction) => 
     const { count, rows: books } = await Book.findAndCountAll({
       where: whereClause,
       offset,
-      limit: Number(limit),
+      limit,
     });
 
     res.render("index", {
       title: "Books",
       books,
-      searchQuery: search,
-      pagination: { page: Number(page), pageCount: Math.ceil(count / Number(limit)) },
+      searchQuery: req.query.search,
+      pagination: { page, pageCount: Math.ceil(count / limit) },
     });
   } catch (error) {
     next(error);
@@ -91,7 +92,7 @@ router.post("/books/new", async (req: Request, res: Response, next: NextFunction
   } catch (error) {
     if ((error as any).name === "SequelizeValidationError") {
       const errors = (error as any).errors.map((err: any) => err.message);
-      res.render("new-book", { errors, book: req.body });
+      res.render("form-error", { errors, book: req.body });
     } else {
       next(error);
     }
