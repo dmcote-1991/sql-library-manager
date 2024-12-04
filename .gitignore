@@ -28,5 +28,5 @@ dist
 # Sensitive config file
 src/config/config.ts
 
-# SQLite database file
+# Database files
 *.db
